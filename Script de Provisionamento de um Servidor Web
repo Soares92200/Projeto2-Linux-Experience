@@ -1,0 +1,68 @@
+Infraestrutura como Código - Script de Provisionamento de um Servidor Web
+
+- Restaurar o snapshot criado anteriormente no virtualbox;
+- Atualizar o servidor;
+- Instalar o Apache2;
+- Baixar a aplicação disponível no enderenço https://github.com/denilsonbonatti/linux-site-dio/archive/refs/head/main.zip  no diretório /tmp;
+- Copiar os arquivos da aplicação no diretório padrão do apache;
+- Subir arquivo de script para um repositório no GitHub.
+
+
+
+
+----- Minha Resposta ---------
+
+#!/bin/bash
+
+echo "Atualizando o servidor....."
+apt update && apt upgrade -y
+
+echo "Instalando Apache2....."
+apt install apache2 -y
+systemctl restart apache2
+
+echo "Baixando aplicação....."
+mkdir /tmp/aplicacao
+cd /tmp/aplicacao
+wget https://github.com/denilsonbonatti/linux-site-dio/archive/refs/head/main.zip
+apt install unzip -y
+unzip main.zip
+
+echo "Copiando aplicação....."
+rm -rf index.html
+cp * /var/www/html/ -r
+
+
+
+
+
+------- Resposta de Denilson Bonatti ----------
+
+#!/bin/bash
+
+echo "Atualizando servidor..."
+apt-get update
+apt-get upgrade -y
+apt-get install apache2 -y
+apt-get install unzip -y
+
+echo "Baixando e copiando os arquivos da aplicação..."
+
+cd /tmp
+wget https://github.com/denilsonbonatti/linux-site-dio/archive/refs/head/main.zip
+unzip main.zip
+cd linux-site-dio-main
+cp -R * /var/www/html/
+
+
+
+
+
+
+
+
+
+
+
+
+
